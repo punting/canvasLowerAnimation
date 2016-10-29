@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>bobbing 4</title>
+</head>
+<body>
+<canvas id="canvas" width="400" height="400" style="background-color: aqua"></canvas>
+<script src="utils.js"></script>
+<script src="ball.js"></script>
+<script>
+    window.onload = function(){
+        var canvas = document.getElementById("canvas"),
+                context = canvas.getContext('2d'),
+                ball = new Ball(),
+                angle = 0,
+                centerX = canvas.width/2,
+                centerY = canvas.height/2,
+                radius2 = 50,
+                speed = 0.05;
+
+        (function drawFrame(){
+            requestAnimationFrame(drawFrame,canvas);
+            context.clearRect(0,0,canvas.width,canvas.height)
+
+            ball.x = centerX + Math.sin(angle)*radius2;
+            ball.y = centerY + Math.cos(angle)*radius2;
+            angle += speed;
+            ball.draw(context);
+
+//            context.beginPath();
+//            context.moveTo(centerX,centerY);
+//            angle += speed;
+//            centerX = centerX + Math.sin(angle)*radius2;
+//            centerY = centerY + Math.cos(angle)*radius2;
+//            context.lineTo(centerX,centerY);
+//            context.stroke();
+        })();
+    }
+</script>
+</body>
+</html>

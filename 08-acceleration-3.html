@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>acceleration</title>
+</head>
+<body>
+<canvas id="canvas" width="400" height="400" style="background-color: aqua"></canvas>
+<script src="utils.js"></script>
+<script src="ball.js"></script>
+<script>
+    window.onload = function(){
+        var canvas = document.getElementById("canvas"),
+                context = canvas.getContext('2d'),
+                ball = new Ball(),
+                vx = 0 ,//degrees
+                vy = 0,
+                ax = 0,
+                ay = 0,
+                gravity=0.02;
+
+        ball.x = canvas.width/4;
+        ball.y=canvas.height/4;
+
+        window.addEventListener('keydown',function (event) {
+            switch (event.keyCode){
+                case 37: //left
+                    ax = -0.1;
+                    break;
+                case 39: //right
+                    ax = 0.1;
+                    break;
+                case 38:  // up
+                    ay = -0.1
+                    break;
+                case 40:  // down
+                    ay = 0.1
+                    break;
+            }
+        },false);
+        window.addEventListener('keyup',function () {
+            ax = 0;
+            ay = 0;
+        },false);
+
+        (function drawFrame() {
+            requestAnimationFrame(drawFrame,canvas);
+            context.clearRect(0,0,canvas.width,canvas.height);
+            vx += ax;
+            vy += ay;
+            vy+=gravity;
+            ball.x += vx;
+            ball.y += vy;
+            ball.draw(context);
+        })()
+
+    }
+</script>
+</body>
+</html>

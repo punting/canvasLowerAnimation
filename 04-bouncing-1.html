@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ball</title>
+    <style>
+        #canvas{
+            background-color: #000000;
+        }
+    </style>
+</head>
+<body>
+<canvas id="canvas" width="400" height="400" style="background-color: aqua"></canvas>
+<script src="utils.js"></script>
+<script src="ball.js"></script>
+<script>
+    window.onload = function(){
+        var canvas = document.getElementById("canvas"),
+                context = canvas.getContext('2d'),
+                ball = new Ball(),
+                vy = Math.random() * 10 -5,
+                vx= Math.random() * 10 -5 ;
+
+        ball.x= canvas.width/2;
+        ball.y=canvas.height/2;
+
+        (function drawFrame(){
+            requestAnimationFrame(drawFrame,canvas);
+            context.clearRect(0,0,canvas.width,canvas.height);
+
+                var  left = 0 ,
+                    right = canvas.width,
+                    top = 0,
+                    bottom = canvas.height;
+            ball.x += vx;
+            ball.y += vy;
+            //screen wrapping
+            if(ball.x + ball.radius/2 > right){
+                ball.x = ball.radius/2 + right;
+                vx *= -1*0.8;
+            }else if(ball.x - ball.radius/2 <left){
+                ball.x = ball.radius/2 +left;
+                vx *= -1*0.8;
+            }
+            if(ball.y+ ball.radius/2 > bottom){
+                ball.y= ball.radius/2 + bottom;
+                vy *= -1*0.8;
+            }else if(ball.y < top + ball.radius / 2){
+               ball.y = top + ball.radius / 2;
+                vy *= -1*0.8;
+            }
+            ball.draw(context);
+        })()
+//                left = 0 ,
+//                right = canvas.width,
+//                top = 0,
+//                bottom = canvas.height,
+//                balls = [],
+//                numBalls=1;
+//
+//        for(var ball,i=0;i<numBalls;i++){
+//            ball = new Ball();
+//            ball.x = canvas.width / 2 ;
+//            ball.y = canvas.height/2 ;
+//            ball.vx = Math.random() * 10 - 5 ;
+//            ball.vy = Math.random() * 10 - 5 ;
+//            balls.push(ball);
+//        }
+//        function draw(ball){
+//            ball.x+=ball.vx;
+//            ball.y+=ball.vy;
+//            if(ball.x + ball.radius/2 > right){
+//                ball.x = ball.radius/2 + right;
+//                ball.vx *= -1*0.8;
+//            }else if(ball.x - ball.radius/2 <left){
+//                ball.x = ball.radius/2 +left;
+//                ball.vx *= -1*0.8;
+//            }
+//            if(ball.y+ ball.radius/2 > bottom){
+//                ball.y= ball.radius/2 + bottom;
+//                ball.vy *= -1*0.8;
+//            }else if(ball.y < top + ball.radius / 2){
+//               ball.y = top + ball.radius / 2;
+//                ball.vy *= -1*0.8;
+//            }
+//            ball.draw(context);
+//        }
+//        (function drawFrame() {
+//            requestAnimationFrame(drawFrame,canvas);
+//            context.clearRect(0,0,canvas.width,canvas.height);
+//            balls.forEach(draw);
+//        })()
+    }
+</script>
+</body>
+</html>
